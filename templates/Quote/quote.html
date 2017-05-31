@@ -1,0 +1,89 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block nav %}
+{% endblock %}
+{% block title %}
+    {{ quote }}
+{% endblock %}
+{% block body %}
+<link rel="stylesheet" type="text/css" href="{% static 'quotestyle.css' %}">
+<div class="row" style="position: relative; padding: 10px 10px 10px 20px">
+    <img src="{% static 'img/header.jpg' %}" style="max-width: 100%; width: 100%">
+    <h4 class="center">Quotation</h4>
+        <table>
+            <tr>
+                <th>COMPANY NAME</th>
+                <td>{{ quote.company_name }}</td>
+            </tr>
+            <tr>
+                <th>ATTENTION</th>
+                <td>{{ quote.attention }}</td>
+            </tr>
+            <tr>
+                <th>JOB</th>
+                <td>{{ quote.job }}</td>
+            </tr>
+            <tr>
+                <th>DATE</th>
+                <td>{{ quote.date|date:'d/m/y' }}</td>
+            </tr>
+            <tr>
+                <th>SITE</th>
+                <td>{{ quote.site }}</td>
+            </tr>
+        </table>
+        <p style="margin: 10px 5px;">
+            Dear Sir, with reference to the enquiry dated 23/04/2017 for core hole, we are pleased to quote our best offer as under.
+        </p>
+        <table style="margin: 20px 0">
+            <thead>
+            <tr>
+                <th>S. No.</th>
+                <th>ITEM</th>
+                <th>DESCRIPTION</th>
+                <th>UNIT PRICE</th>
+                <th>QTY</th>
+                <th>HIRING DAYS</th>
+                <th>TOTAL IN AED</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in quote.item_set.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.get_item_display }}</td>
+                <td>{{ item }}</td>
+                <td>{{ item.unit_price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.hiring_days }}</td>
+                <td>{{ item.total }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th class="center" colspan="6">TOTAL</th>
+                <th colspan="1">{{ quote.total }}</th>
+            </tr>
+            </tfoot>
+            <tr></tr>
+        </table>
+        <div style="z-index: 100" id="terms">
+            <h6 style="font-weight: bolder; font-size: large">TERMS AND CONDTIONS</h6>
+            {{ terms | safe }}
+        </div>
+    <div class="footer">
+        <p>
+            For further clarification please contact the undersigned
+        </p>
+        <p>
+            For ICON SCAFFOLDING RENTAL LLC
+        </p>
+        <img style="position: absolute; right: 20px; bottom: 20px; width: 250px" src="{% static 'img/seal.png' %}">
+            <h4 class="sign" style="position: absolute; right: 250px; bottom: 100px">Azeem</h4>
+        <p>
+            +97155 3359645, 056 4419367
+        </p>
+    </div>
+</div>
+{% endblock %}

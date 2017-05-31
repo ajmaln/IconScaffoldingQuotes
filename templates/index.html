@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <title>{% block title %}Quotes{% endblock %}</title>
+    <link rel="shortcut icon" type="image/png" href=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}"></script>
+    <script>tinymce.init({
+        selector:'textarea',
+        theme: 'modern',
+        plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor',
+        ]
+    });</script>
+    <script rel="script" src="{% static 'js/jquery.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+
+{% block script %}{% endblock %}
+</head>
+<body>
+{% block nav %}
+<div class="navbar-fixed">
+  <nav>
+    <div class="nav-wrapper">
+      <a href="{% url 'index' %}" class="brand-logo center">Quotes</a>
+      <ul id="nav-mobile" class="right">
+        <li class="tooltipped" data-tooltip="Logout" data-position="bottom" data-delay="50"><a href="{% url 'logout' %}"><i class="material-icons left">power_settings_new</i></a></li>
+      </ul>
+    </div>
+  </nav>
+
+</div>
+{% endblock %}
+{% block body %}
+{% endblock %}
+</body>
+</html>

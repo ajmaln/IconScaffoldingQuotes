@@ -1,0 +1,79 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+{% block body %}
+    <div class="container">
+    <div class="card">
+        <div class="card-content">
+            <a href="{% url 'quote' quote.id %}" class="btn right" style="background-color: rgba(58,186,82,0.78);">View Quotation</a>
+        <div class="card-title">{{ quote }}</div>
+            <form id="items-form" method="post">
+        <div class="row" style="margin: 20px 0 0 0">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if not forloop.counter > 2 %}
+                <div class="input-field col s3" style="min-width: 80px">
+                    {% render_field field id=field.label|lower %}
+                    <label for="{{ field.label|lower }}">{{ field.label }}</label>
+                </div>
+                {% else %}
+                <div class="input-field col s1" style="min-width: 80px">
+                    {% render_field field id=field.label|lower %}
+                    <label for="{{ field.label|lower }}">{{ field.label }}</label>
+                </div>
+                {% endif %}
+            {% endfor %}
+        <button class="btn-large right" style="background-color: #304ffe; margin: 5px 0" type="submit">ADD</button>
+        </div>
+        </form>
+        </div>
+    </div>
+    <div class="card" style="height: auto">
+    <div class="card-content">
+        <div class="card-title">Items</div>
+        <table class="responsive-table" style="margin: 20px 0">
+            <thead>
+            <tr>
+                <th>S. No.</th>
+                <th>ITEM</th>
+                <th>DESCRIPTION</th>
+                <th>UNIT PRICE</th>
+                <th>QTY</th>
+                <th>HIRING DAYS</th>
+                <th>TOTAL IN AED</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in quote.item_set.all %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.get_item_display }}</td>
+                <td>{{ item }}</td>
+                <td>{{ item.unit_price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.hiring_days }}</td>
+                <td>{{ item.total }}</td>
+                <td><form method="post" action="{% url 'delete_item' quote.id item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn red">Delete</button>
+                </form> </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th class="center" colspan="6">TOTAL</th>
+                <th colspan="1">{{ quote.total }}</th>
+            </tr>
+            </tfoot>
+            <tr></tr>
+        </table>
+    </div>
+    </div>
+    </div>
+<script>
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+</script>
+{% endblock %}

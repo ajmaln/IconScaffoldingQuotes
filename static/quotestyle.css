@@ -1,0 +1,17 @@
+@font-face {
+    font-family: DrSugiyama;
+    src: url("/static/fonts/Sugiyama/DrSugiyama-Regular.ttf");
+}
+
+th, td{
+    padding: 0 5px;
+}
+ul:not(.browser-default) li{
+  list-style-type: initial;
+}
+.sign{
+    font-family: DrSugiyama, cursive;
+}
+.footer{
+    margin-bottom: 100px;
+}

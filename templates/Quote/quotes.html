@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block body %}
+<div class="card">
+<div class="card-content">
+    <a class="btn blue right" href="{% url 'create' %}">New Quotation</a>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Quote</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for quote in object_list %}
+            <tr>
+            <td>{{ quote.id }}</td>
+            <td><a href="{% url 'quote' quote.id %}">{{ quote }}</a></td>
+            <td>{{ quote.date }}</td>
+            <td><a href="{% url 'add_item' quote.id %}">Edit</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

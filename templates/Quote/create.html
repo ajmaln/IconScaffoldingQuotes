@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% load widget_tweaks %}
+{% block body %}
+    <div class="container">
+    <div class="row center">
+    <div class="card col s8 offset-s2">
+    <div class="card-content">
+        <div class="card-title">New Quotation</div>
+        <div class="row">
+            <form method="post">
+                {% csrf_token %}
+                {% with form1 as form %}
+        {% include 'form_template.html' %}
+                {% endwith %}
+
+            <div class="input-field col s12 center">
+                <h5>{{ form2.terms.label }}</h5>
+                    {% render_field form2.terms id=field.label|lower %}
+            </div>
+                <button title="submit" class="btn blue right">Proceed</button>
+            </form>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+{% endblock %}

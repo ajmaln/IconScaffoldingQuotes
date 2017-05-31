@@ -1,0 +1,43 @@
+{% load widget_tweaks %}
+           {% for field in form %}
+                {% if field|field_type == 'booleanfield' %}
+                    <div class="input-field col s12">
+                    {% render_field field %}
+                    <label for="id_{{ field.label }}">{{ field.label }}</label>
+                    </div>
+                {% elif field.label == 'Description' %}
+                    <div class="input-field col s12">
+                        {% render_field field class="materialize-textarea" %}
+                        <label for="id_{{ field.label }}">{{ field.label }}</label>
+                    </div>
+                {% elif field|field_type == 'imagefield' %}
+                    <div>
+                    <div class="file-field input-field col s12">
+                    <div class="btn">
+                        <span>IMAGE</span>
+                            {% render_field field type='file' %}
+                        </div>
+                    <div class="file-path-wrapper">
+                        {% render_field field class="file-path validate" type='text' %}
+                    </div>
+                        </div>
+                    </div>
+                {% elif field|field_type == 'datefield' %}
+                    <div class="input-field col s12">
+                    {% render_field field type='date' class='datepicker' id=field.label|lower %}
+                    <label for="{{ field.label|lower }}">{{ field.label }}</label>
+                    </div>
+                    {% else %}
+                <div class="input-field col s12">
+                    {% render_field field id=field.label|lower %}
+                <label for="{{ field.label|lower }}">{{ field.label }}</label>
+                </div>
+                {% endif %}
+           {% endfor %}
+<script>
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    format: 'm/d/yyyy'
+  });
+</script>
